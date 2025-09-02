@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipe Book</title>
+</head>
+<body>
+  <h1>Recipe Book</h1>
+
+  <input id="title" placeholder="Recipe title"><br>
+  <textarea id="ingredients" placeholder="Ingredients"></textarea><br>
+  <textarea id="instructions" placeholder="Instructions"></textarea><br>
+  <button onclick="addRecipe()">Add Recipe</button>
+
+  <br><br>
+  <input id="search" placeholder="Search..." onkeyup="searchRecipe()">
+
+  <div id="list"></div>
+
+  <script>
+    let recipes = [];
+
+    function addRecipe() {
+      let t = title.value, i = ingredients.value, ins = instructions.value;
+      if (t && i && ins) {
+        recipes.push({t,i,ins});
+        title.value = ingredients.value = instructions.value = "";
+        show(recipes);
+      }
+    }
+
+    function show(arr) {
+      list.innerHTML = arr.map(r => `<h3>${r.t}</h3><p>${r.i}</p><p>${r.ins}</p>`).join("");
+    }
+
+    function searchRecipe() {
+      let q = search.value.toLowerCase();
+      show(recipes.filter(r => r.t.toLowerCase().includes(q) || r.i.toLowerCase().includes(q) || r.ins.toLowerCase().includes(q)));
+    }
+  </script>
+</body>
+</html>
